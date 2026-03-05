@@ -6,21 +6,37 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-monitor:
+  monitor:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
+
+      # 用 cache 保存 state.json，保证“无房->有房只发一次”
+      - name: Restore state cache
+        uses: actions/cache@v4
+        with:
+          path: state.json
+          key: marriott-monitor-state-v1
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install deps
         run: pip install requests
 
       - name: Run monitor
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-        run: python smtp_test.py
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+          # testing 模式默认用 onboarding@resend.dev，不用改
+          # MAIL_FROM: ${{ secrets.MAIL_FROM }}
+        run: python monitor.py
+
+      - name: Save state cache
+        uses: actions/cache@v4
+        with:
+          path: state.json
+          key: marriott-monitor-state-v1
