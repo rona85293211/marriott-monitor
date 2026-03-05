@@ -3,20 +3,37 @@ import requests
 
 API_KEY = os.environ["RESEND_API_KEY"]
 
-url = "https://api.resend.com/emails"
+HOTEL_URL = "https://www.marriott.com.cn/reservation/availability.mi?propertyCode=ZQZEL&checkInDate=2026-03-07&checkOutDate=2026-03-08&roomCount=1&numAdultsPerRoom=1"
 
-payload = {
-    "from": "onboarding@resend.dev",
-    "to": ["85293211@qq.com"],   # 这里改成你的QQ邮箱
-    "subject": "万豪监控邮件测试",
-    "text": "如果你收到这封邮件，说明QQ邮箱接收成功。"
-}
+response = requests.get(HOTEL_URL)
 
-headers = {
-    "Authorization": f"Bearer {API_KEY}",
-    "Content-Type": "application/json"
-}
+html = response.text.lower()
 
-response = requests.post(url, json=payload, headers=headers)
+available = True
 
-print(response.text)
+if "sold out" in html or "没有可用客房" in html or "no availability" in html:
+    available = False
+
+if available:
+    payload = {
+        "from": "onboarding@resend.dev",
+        "to": ["85293211@qq.com"],
+        "subject": "万豪酒店放房提醒",
+        "text": "你监控的万豪酒店可能有房了，请尽快查看。"
+    }
+
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    requests.post(
+        "https://api.resend.com/emails",
+        json=payload,
+        headers=headers
+    )
+
+    print("发现房间，已发送邮件")
+
+else:
+    print("暂时没有房间")
