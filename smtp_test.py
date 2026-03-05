@@ -7,9 +7,9 @@ url = "https://api.resend.com/emails"
 
 payload = {
     "from": "onboarding@resend.dev",
-    "to": ["85293211@qq.com"],
-    "subject": "GitHub 邮件测试",
-    "html": "<p>如果你收到这封邮件，说明 Resend 邮件系统正常。</p>"
+    "to": ["85293211@qq.com"],   # 这里改成你的QQ邮箱
+    "subject": "万豪监控邮件测试",
+    "text": "如果你收到这封邮件，说明QQ邮箱接收成功。"
 }
 
 headers = {
@@ -17,6 +17,6 @@ headers = {
     "Content-Type": "application/json"
 }
 
-r = requests.post(url, json=payload, headers=headers)
+response = requests.post(url, json=payload, headers=headers)
 
-print(r.text)
+print(response.text)
