@@ -5,8 +5,8 @@ from datetime import datetime, timezone
 
 # ====== 你要监控的参数（按需改）======
 PROPERTY_CODE = "ZQZEL"                 # 酒店code（你这个是崇礼 Element）
-CHECKIN_DATE = "2026-03-08"            # 入住日期 YYYY-MM-DD
-CHECKOUT_DATE = "2026-03-09"           # 退房日期 YYYY-MM-DD
+CHECKIN_DATE = "2026-03-09"            # 入住日期 YYYY-MM-DD
+CHECKOUT_DATE = "2026-03-10"           # 退房日期 YYYY-MM-DD
 ROOM_COUNT = "1"
 ADULTS_PER_ROOM = "1"
 CHILDREN_COUNT = "0"
