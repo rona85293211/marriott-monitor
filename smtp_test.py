@@ -7,7 +7,7 @@ url = "https://api.resend.com/emails"
 
 payload = {
     "from": "onboarding@resend.dev",
-    "to": ["rona85293211@gmail.com"],
+    "to": ["85293211@qq.com"],
     "subject": "GitHub 邮件测试",
     "html": "<p>如果你收到这封邮件，说明 Resend 邮件系统正常。</p>"
 }
