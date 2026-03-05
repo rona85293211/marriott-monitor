@@ -4,7 +4,7 @@ import requests
 API_KEY = os.environ["RESEND_API_KEY"]
 
 # 万豪查询链接
-URL = "https://www.marriott.com.cn/reservation/availability.mi?propertyCode=ZQZEL&checkInDate=2026-03-08&checkOutDate=2026-03-09&roomCount=1&numAdultsPerRoom=1"
+URL = "https://www.marriott.com.cn/reservation/availability.mi?propertyCode=ZQZEL&checkInDate=2026-03-07&checkOutDate=2026-03-08&roomCount=1&numAdultsPerRoom=1"
 
 response = requests.get(URL)
 
